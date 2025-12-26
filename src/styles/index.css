@@ -1,0 +1,773 @@
+/* ========================================
+   AI智能菜谱 - 样式表
+   ======================================== */
+
+/* -------------------- 
+   CSS 变量定义
+   -------------------- */
+:root {
+  --primary-color: #4CAF50;
+  --primary-dark: #388E3C;
+  --primary-light: #C8E6C9;
+  --secondary-color: #FF9800;
+  --background-color: #F5F7FA;
+  --card-background: #FFFFFF;
+  --text-primary: #2C3E50;
+  --text-secondary: #7F8C8D;
+  --border-color: #E0E0E0;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+/* -------------------- 
+   全局样式重置
+   -------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 50%, #FFF8E1 100%);
+  min-height: 100vh;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* -------------------- 
+   应用容器
+   -------------------- */
+.app-container {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--background-color);
+  position: relative;
+}
+
+/* -------------------- 
+   头部样式
+   -------------------- */
+.header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #66BB6A 100%);
+  padding: 30px 20px;
+  text-align: center;
+  color: white;
+  border-radius: 0 0 30px 30px;
+  box-shadow: var(--shadow);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.logo-icon {
+  font-size: 36px;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.logo h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.tagline {
+  font-size: 14px;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+/* -------------------- 
+   主内容区
+   -------------------- */
+.main-content {
+  padding: 20px;
+  padding-bottom: 80px;
+}
+
+/* -------------------- 
+   上传区域
+   -------------------- */
+.upload-section {
+  margin-bottom: 20px;
+}
+
+.upload-area {
+  background: var(--card-background);
+  border: 2px dashed var(--primary-color);
+  border-radius: var(--radius);
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+}
+
+.upload-area:hover {
+  border-color: var(--primary-dark);
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.upload-area.drag-over {
+  border-color: var(--secondary-color);
+  background: #FFF3E0;
+}
+
+.upload-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.upload-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.upload-hint {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* -------------------- 
+   图片预览
+   -------------------- */
+.preview-container {
+  position: relative;
+  margin-top: 15px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.preview-container img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+.btn-remove {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btn-remove:hover {
+  background: rgba(244, 67, 54, 0.9);
+  transform: scale(1.1);
+}
+
+/* -------------------- 
+   分析按钮
+   -------------------- */
+.btn-analyze {
+  width: 100%;
+  margin-top: 15px;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, #66BB6A 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.btn-analyze:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.btn-analyze:disabled {
+  background: #BDBDBD;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-icon {
+  font-size: 20px;
+}
+
+/* -------------------- 
+   加载状态
+   -------------------- */
+.loading-section {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid var(--primary-light);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+.loading-text {
+  font-size: 16px;
+  color: var(--text-secondary);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* -------------------- 
+   卡片样式
+   -------------------- */
+.card {
+  background: var(--card-background);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  animation: slideUp 0.5s ease;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+.title-icon {
+  font-size: 24px;
+}
+
+/* -------------------- 
+   食材列表
+   -------------------- */
+.ingredients-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ingredient-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--primary-dark);
+  border: 1px solid var(--primary-light);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.ingredient-tag:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 10px rgba(76, 175, 80, 0.2);
+}
+
+.ingredient-tag.main-ingredient {
+  background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%);
+  border-color: #FFD54F;
+  color: #F57C00;
+}
+
+.main-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: linear-gradient(135deg, #FF9800, #F57C00);
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.ingredient-icon {
+  font-size: 16px;
+}
+
+/* -------------------- 
+   菜谱列表
+   -------------------- */
+.recipes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recipe-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background: linear-gradient(135deg, #FFFDE7 0%, #FFF8E1 100%);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #FFE082;
+}
+
+.recipe-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.2);
+}
+
+.recipe-icon {
+  font-size: 40px;
+  margin-right: 15px;
+}
+
+.recipe-info {
+  flex: 1;
+}
+
+.recipe-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.recipe-meta {
+  display: flex;
+  gap: 15px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.recipe-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.recipe-arrow {
+  font-size: 20px;
+  color: var(--secondary-color);
+}
+
+/* -------------------- 
+   难度标签
+   -------------------- */
+.difficulty {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.difficulty.easy {
+  background: #E8F5E9;
+  color: #388E3C;
+}
+
+.difficulty.medium {
+  background: #FFF3E0;
+  color: #F57C00;
+}
+
+.difficulty.hard {
+  background: #FFEBEE;
+  color: #D32F2F;
+}
+
+/* -------------------- 
+   营养建议
+   -------------------- */
+.nutrition-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.nutrition-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #F8F9FA;
+  border-radius: var(--radius-sm);
+}
+
+.nutrition-icon {
+  font-size: 28px;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.nutrition-info h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.nutrition-info p {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* -------------------- 
+   营养进度条
+   -------------------- */
+.nutrition-bar {
+  margin-top: 15px;
+  padding: 15px;
+  background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+  border-radius: var(--radius-sm);
+}
+
+.nutrition-bar h4 {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.nutrition-subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.nutrition-summary {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+.nutrition-stat {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.nutrition-reference {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.1);
+}
+
+.bar-item {
+  margin-bottom: 10px;
+}
+
+.bar-item:last-child {
+  margin-bottom: 0;
+}
+
+.bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 4px;
+  color: var(--text-secondary);
+}
+
+.bar-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+
+.bar-fill.protein { background: linear-gradient(90deg, #4CAF50, #8BC34A); }
+.bar-fill.carbs { background: linear-gradient(90deg, #FF9800, #FFC107); }
+.bar-fill.fat { background: linear-gradient(90deg, #2196F3, #03A9F4); }
+.bar-fill.calories { background: linear-gradient(90deg, #F44336, #FF5722); }
+
+/* -------------------- 
+   弹窗样式
+   -------------------- */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--card-background);
+  border-radius: var(--radius);
+  max-width: 440px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideIn 0.3s ease;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background: rgba(244, 67, 54, 0.9);
+  color: white;
+}
+
+.modal-body {
+  padding: 0;
+}
+
+.recipe-detail-header {
+  position: relative;
+  height: 180px;
+  background: linear-gradient(135deg, var(--primary-color), #66BB6A);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recipe-detail-icon {
+  font-size: 80px;
+}
+
+.recipe-detail-content {
+  padding: 20px;
+}
+
+.recipe-detail-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.recipe-detail-meta {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.recipe-detail-section {
+  margin-bottom: 20px;
+}
+
+.recipe-detail-section h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.recipe-detail-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.recipe-detail-section li {
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border-color);
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.recipe-detail-section li:last-child {
+  border-bottom: none;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+/* -------------------- 
+   底部
+   -------------------- */
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* -------------------- 
+   动画
+   -------------------- */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* -------------------- 
+   响应式
+   -------------------- */
+@media (max-width: 480px) {
+  .app-container {
+    max-width: 100%;
+  }
+  
+  .header {
+    padding: 25px 15px;
+  }
+  
+  .logo h1 {
+    font-size: 24px;
+  }
+  
+  .main-content {
+    padding: 15px;
+  }
+}
+
+/* -------------------- 
+   滚动条美化
+   -------------------- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
