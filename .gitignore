@@ -1,0 +1,31 @@
+# 依赖
+node_modules/
+
+# 构建输出
+dist/
+build/
+
+# 日志
+*.log
+server.log
+npm-debug.log*
+
+# 环境变量
+.env
+.env.local
+.env.*.local
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 缓存
+.cache/
+.parcel-cache/
