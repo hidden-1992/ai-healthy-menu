@@ -1,4 +1,5 @@
 import React, { useRef, useCallback } from 'react';
+import { readAndCompressImage } from '../utils/imageCompress';
 
 function UploadSection({ selectedImage, onImageSelect, onRemoveImage, onAnalyze, isLoading }) {
   const fileInputRef = useRef(null);
@@ -11,18 +12,28 @@ function UploadSection({ selectedImage, onImageSelect, onRemoveImage, onAnalyze,
     }
   }, []);
 
-  // 处理图片
-  const processImage = useCallback((file) => {
+  // 处理图片（压缩后再上传）
+  const processImage = useCallback(async (file) => {
     if (!file.type.startsWith('image/')) {
       alert('请选择图片文件');
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      onImageSelect(e.target.result);
-    };
-    reader.readAsDataURL(file);
+    try {
+      // 压缩图片：最大 1024px，质量 0.8
+      const compressedImage = await readAndCompressImage(file, {
+        maxWidth: 1024,
+        maxHeight: 1024,
+        quality: 0.8,
+      });
+      onImageSelect(compressedImage);
+    } catch (error) {
+      console.error('图片压缩失败:', error);
+      // 压缩失败时使用原图
+      const reader = new FileReader();
+      reader.onload = (e) => onImageSelect(e.target.result);
+      reader.readAsDataURL(file);
+    }
   }, [onImageSelect]);
 
   // 处理拖拽

@@ -9,6 +9,7 @@ import {
   calculateBMR,
 } from '../services/storageService';
 import { analyzeFoodImage } from '../services/api';
+import { readAndCompressImage } from '../utils/imageCompress';
 
 const MEAL_TYPES = [
   { id: 'breakfast', label: '早餐', icon: '🌅', time: '7:00-9:00' },
@@ -72,11 +73,16 @@ function AssessmentPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = async (event) => {
-      const imageData = event.target.result;
-      setIsAnalyzing(true);
-      setShowAddModal(false);
+    setIsAnalyzing(true);
+    setShowAddModal(false);
+
+    try {
+      // 压缩图片
+      const imageData = await readAndCompressImage(file, {
+        maxWidth: 1024,
+        maxHeight: 1024,
+        quality: 0.8,
+      });
 
       const result = await analyzeFoodImage(imageData, userProfile);
       
@@ -99,10 +105,12 @@ function AssessmentPage() {
       } else {
         alert('识别失败：' + (result?.error || '请重试'));
       }
-      
-      setIsAnalyzing(false);
-    };
-    reader.readAsDataURL(file);
+    } catch (error) {
+      console.error('处理图片失败:', error);
+      alert('处理图片失败，请重试');
+    }
+    
+    setIsAnalyzing(false);
     
     if (fileInputRef.current) {
       fileInputRef.current.value = '';

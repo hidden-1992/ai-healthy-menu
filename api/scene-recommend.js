@@ -5,7 +5,7 @@
 
 // 配置
 const CONFIG = {
-  model: 'google/gemini-3-pro-preview',
+  model: 'google/gemini-2.0-flash-001',
   maxTokens: 4096,
   temperature: 0.7,
 };
