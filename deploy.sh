@@ -23,10 +23,21 @@ echo -e "\n${YELLOW}[1/6] 安装 Node.js 18.x LTS...${NC}"
 if command -v node &> /dev/null; then
     echo -e "${GREEN}Node.js 已安装: $(node -v)${NC}"
 else
-    # 添加 NodeSource 仓库
-    curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
-    sudo dnf install -y nodejs
+    # 使用 nvm 安装 Node.js (兼容性更好)
+    echo "使用 nvm 安装 Node.js..."
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    
+    # 加载 nvm
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    
+    # 安装 Node.js 18 LTS
+    nvm install 18
+    nvm use 18
+    nvm alias default 18
+    
     echo -e "${GREEN}Node.js 安装完成: $(node -v)${NC}"
+    echo -e "${YELLOW}提示: 请运行 'source ~/.bashrc' 或重新登录以使 nvm 生效${NC}"
 fi
 
 # ==================== Step 2: 安装 Nginx ====================
